@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">Create new book</div>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal"
+                      action="/books/edit"
+                      method="post"
+                      enctype="multipart/form-data"
+                      th:object="${book}">
+                    <input type="hidden" name="bookId" id="bookId" th:value="${book.getId()}">
+                    <div class="form-group required">
+                        <label class="control-label col-md-4 requiredField">Book name<span
+                                class="asteriskField">*</span> </label>
+                        <div class="controls col-md-8 ">
+                            <input class="input-md  textinput textInput form-control"
+                                   maxlength="30"
+                                   name="name"
+                                   id="name"
+                                   required
+                                   th:placeholder="${book.getName()}"
+                                   style="margin-bottom: 10px"
+                                   type="text"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group required">
+                        <label class="control-label col-md-4  requiredField">Number of copies<span
+                                class="asteriskField">*</span> </label>
+                        <div class="controls col-md-8 ">
+                            <input class="input-md emailinput form-control"
+                                   name="numberOfCopies"
+                                   id="numberOfCopies"
+                                   required
+                                   th:placeholder="${book.getNumberOfCopies()}"
+                                   style="margin-bottom: 10px"
+                                   type="text"/>
+                            <p class="text-danger" th:text="${param.error}"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group required">
+                        <label class="control-label col-md-4  requiredField">Image<span
+                                class="asteriskField">*</span> </label>
+                        <div class="controls col-md-8 ">
+                            <input class="input-md textinput textInput form-control"
+                                   name="image"
+                                   id="image"
+                                   th:placeholder="${book.getImage()}"
+                                   style="margin-bottom: 10px"
+                                   type="file"/>
+                        </div>
+                    </div>
+                    <div class="form-group required">
+                        <label class="control-label col-md-4  requiredField">Category<span
+                                class="asteriskField">*</span> </label>
+                        <div class="controls col-md-8 ">
+                            <!--                            th:field="*{categoryId}"-->
+                            <select class="form-control"
+                                    name="categoryId"
+                                    id="categoryId">
+                                <option selected="selected"
+                                        th:text="${book.getCategory() != null}? ${book.getCategory().getName()}:''"></option>
+                                <option th:each="category : ${categories}"
+                                        th:value="${category != null}?${category.getId()}:''"
+                                        th:text="${category != null}?${category.getName()}:''">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="aab controls col-md-4 "></div>
+                        <div class="controls col-md-8 ">
+                            <button type="submit" class="btn btn-primary btn btn-info">Submit</button>
+                            or <a href="/books" class="btn btn btn-primary">Back</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
